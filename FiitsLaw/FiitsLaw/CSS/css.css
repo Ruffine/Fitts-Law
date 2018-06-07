@@ -10,7 +10,8 @@
 }
 
 .circles{
-    height : 350px;
+    margin: 25px;
+    height : 400px;
 }
 
 table, th, td {
@@ -42,7 +43,7 @@ body {
     font-size: 16px;
     line-height: 1.5;
     margin: 0 auto;
-    max-width: 1000px;
+    max-width: 1050px;
     /*padding: 2em 2em 4em;*/
     text-align: center;
 }

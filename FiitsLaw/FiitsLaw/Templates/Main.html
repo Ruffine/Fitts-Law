@@ -1,9 +1,13 @@
-﻿<div class="circles" id="circles" onclick="runner(this)">
-    <svg width="1000" id="svgs">
-        <circle cx="500" cy="90" r="20" stroke="black" stroke-width="3" fill="green" id="start"/>
-        <!--<circle cx="300" cy="90" r="40" stroke="black" stroke-width="3" fill="blue" id="circle"/>-->
-    </svg>
-</div>
+﻿
+<div class="circles" id="circles" onclick="runner(this)">
+        <svg width="1000" id="svgs">
+            <circle cx="500" cy="90" r="20" stroke="black" stroke-width="3" fill="green" id="start"/>
+            <!--<circle cx="300" cy="90" r="40" stroke="black" stroke-width="3" fill="blue" id="circle"/>-->
+        </svg>
+    </div>
+
+
+
 
 <div class="results">
     <table style="width:100%" id="results">
@@ -17,97 +21,3 @@
     </table>
 </div>
 
-<script>
-    var list = [
-        { amp : 20, width: 20, count: 0 },
-         { amp : 40, width:  60},
-          { amp : 60, width: 40 }
-    ]
-    var choice = 0; 
-    function runner(e) {
-        e = e || window.event;
-        var src = e.target || e.srcElement;
-
-        if (($('#start').length)) {
-            if (event.target.id == "start" || $(event.target).parents('#start').length) {
-                choice = 1;
-
-                if (list[choice].count < 10) {
-
-                } else {
-
-                }
-
-                createCircle(list[choice].amp, list[choice].width);
-            }
-        }else if (($('#starttoto').length)) {
-            if (event.target.id == "starttoto" || $(event.target).parents('#starttoto').length) {
-                Adddata(list[choice].amp, list[choice].width, "22", "Yes");
-            } else {
-                Adddata(list[choice].amp, list[choice].width, "21", "No");
-            }
-            createStart();
-        }
-    }
-        //if (($('#start').length)) {
-        //    $('#circles').click(function (e) {
-        //        e.preventDefault();
-        //        e.stopPropagation();
-        //        if (e.target.id == "start" || $(e.target).parents('#start').length) {
-        //            createCircle(20, 20);
-        //            e.stopPropagation();
-        //        }
-        //        e.stopPropagation();
-        //    });
-        //} else if (($('.testLooo').length)) {
-        //    e.preventDefault();
-        //    $('#circles').click(function (e) {
-        //        e.stopPropagation();
-        //            if (e.target.id == "circle" || $(e.target).parents('#circle').length) {
-        //                //alert("Inside div");
-        //                Adddata();
-        //                e.stopPropagation();
-        //            } else {
-        //                //alert("Outside div");
-        //                Adddata();
-        //                e.stopPropagation();
-        //            }
-        //            e.stopPropagation();
-        //        });
-        //    createStart();
-            
-        //}
-    function createStart() {
-        var container = document.getElementById('svgs');
-        while (container.firstChild) {
-            container.removeChild(container.firstChild);
-        }
-
-        var svgns = "http://www.w3.org/2000/svg";
-        var circle = document.createElementNS(svgns, 'circle');
-        circle.setAttributeNS(null, 'cx', 500);
-        circle.setAttributeNS(null, 'cy', 90);
-        circle.setAttributeNS(null, 'r', 20);
-        circle.setAttributeNS(null, 'style', 'fill: green; stroke: black; stroke-width: 3px;');
-        circle.setAttribute('id', 'start');
-        container.appendChild(circle);
-    }
-    function createCircle(x,r) {
-        var container = document.getElementById('svgs');
-        while (container.firstChild) {
-            container.removeChild(container.firstChild);
-        }
-
-        var svgns = "http://www.w3.org/2000/svg";
-        var circle = document.createElementNS(svgns, 'circle');
-        circle.setAttributeNS(null, 'cx', x);
-        circle.setAttributeNS(null, 'cy', 90);
-        circle.setAttributeNS(null, 'r', r);
-        circle.setAttributeNS(null, 'style', 'fill: blue; stroke: black; stroke-width: 3px;');
-        circle.setAttribute('id', 'starttoto');
-        container.appendChild(circle);
-    }
-    function Adddata(amp,width,time,click) {
-        $('#results tr:last').after('<tr><td>' + amp+ '</td><td>' + width+ ' </td><td>'+ time+' </td><td>' +click +' </td></tr>');
-    }
-</script>
