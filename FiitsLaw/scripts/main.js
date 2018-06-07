@@ -56,7 +56,7 @@ var leftTasks, rightTasks;
 leftTasks = rightTasks = 0;
 var leftAxisLimit = 45;
 var rightAxisMarker = 90;
-var totalUserPerformedTasks = new Array(12);
+var totalUserPerformedTasks = new Array(120);
 var userPerformedTasks = {
   time: null,
   position: null,
@@ -81,7 +81,7 @@ function completeTask() {
 }
 
 function playGame() {
-  if (leftTasks < 6) {
+  if (leftTasks < 60) {
     addCircleSvg(
       setDistanceToMouse("left"),
       setDistanceToMouse("yAxis"),
@@ -89,7 +89,7 @@ function playGame() {
     );
     leftTasks++;
     console.log("left " + leftTasks);
-  } else if (rightTasks < 6) {
+  } else if (rightTasks < 60) {
     addCircleSvg(
       setDistanceToMouse("right"),
       setDistanceToMouse("yAxis"),
@@ -116,11 +116,7 @@ function runner(e) {
     ) {
       choice = 1;
 
-      if (list[choice].count < 10) {
-      } else {
-      }
-
-      createCircle(list[choice].amplitude, list[choice].width);
+      
     }
   } else if ($("#starttoto").length) {
     if (
