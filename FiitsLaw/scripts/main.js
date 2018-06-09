@@ -30,7 +30,7 @@ function showEndButton() {
 
 function getCircleRadius() {
   // Returns a random size
-  return getArbitrarySize(3, 10);
+  return getArbitrarySize(2, 5);
 }
 
 function setDistanceToMouse(range) {
@@ -44,7 +44,7 @@ function setDistanceToMouse(range) {
       break;
 
     case "yAxis":
-      return getArbitrarySize(10, 50);
+      return getArbitrarySize(5, 25);
       break;
   }
 }
@@ -73,7 +73,7 @@ function startTask() {
   taskTimer.addEventListener("secondsUpdated", function(e) {
     $("#timer").html(taskTimer.getTimeValues().toString());
   });
-  playGame()
+  playGame();
 }
 
 function completeTask() {
@@ -88,7 +88,7 @@ function playGame() {
       getCircleRadius()
     );
     leftTasks++;
-    console.log("left " + leftTasks);
+    console.log("right " + leftTasks);
   } else if (rightTasks < 60) {
     addCircleSvg(
       setDistanceToMouse("right"),
@@ -96,40 +96,34 @@ function playGame() {
       getCircleRadius()
     );
     rightTasks++;
-    console.log("right" + rightTasks);
+    console.log("left" + rightTasks);
   } else {
-          deleteSvg()
+          deleteSvg();
 
     showEndButton();
   }
 }
+var wrongClick = 0; 
+    function WrongClick(clickevent) {
+        e = e || window.event;
+        var src = e.target || e.srcElement;
 
-var choice = 0;
-function runner(e) {
-  e = e || window.event;
-  var src = e.target || e.srcElement;
-
-  if ($("#start").length) {
-    if (
-      event.target.id == "start" ||
-      $(event.target).parents("#start").length
-    ) {
-      choice = 1;
-
-      
+        if (($('#start').length)) {
+            if (event.target.id == "start" || $(event.target).parents('#start').length) 
+            {
+                choice = 1;
+            }
+        }else if (($('#starttoto').length)) {
+            if (event.target.id == "starttoto" || $(event.target).parents('#starttoto').length) {
+                Adddata(list[choice].amp, list[choice].width, "22", "Yes");
+            } else {
+                Adddata(list[choice].amp, list[choice].width, "21", "No");
+            }
+            createStart();
+        }
     }
-  } else if ($("#starttoto").length) {
-    if (
-      event.target.id == "starttoto" ||
-      $(event.target).parents("#starttoto").length
-    ) {
-      Adddata(list[choice].amplitude, list[choice].width, "22", "Yes");
-    } else {
-      Adddata(list[choice].amplitude, list[choice].width, "21", "No");
-    }
-    createStart();
-  }
-}
+
+
 function deleteSvg(){
     var container = document.getElementById("svgs");
     while (container.firstChild) {
@@ -146,7 +140,7 @@ function addCircleSvg(xAxisPostion, yAxisPostion, radius) {
   var svgElem = document.createElementNS(xmlns, "svg");
   svgElem.setAttributeNS(null, "width", radius * 2 + 5);
   svgElem.setAttributeNS(null, "height", radius * 2 + 5);
-  svgElem.setAttribute("id", "");
+  svgElem.setAttribute("id", "starttoto");
 
   //creates a circle element for the new svg
   var circle = document.createElementNS(xmlns, "circle");
