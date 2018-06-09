@@ -1,33 +1,28 @@
-/*
-Helpers
-*/
+var roundNumber, taskId, errors, svgToLeft, svgToRight;
+roundNumber = taskId = errors = svgToLeft = svgToRight = 0;
+var leftAxisLimit = 45;
+var rightAxisMarker = 90;
+var taskTimer = new Timer({ precision: "seconds" });
 
-function getRandomColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
+
+$(document).on("click", function(event) {
+  if (taskTimer.isRunning()) {
+    // Only  register click events after the game has started
+    if (event.target.id == "startButton") {
+    } else if (event.target.id == "nextButton") {
+
+    } else if (event.target.id != "circularSvg") {
+      errors++;
+    }
+    playTask();
   }
-  return color;
-}
+});
 
-function getArbitrarySize(min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
-}
+function resetGame() {
+  taskTimer.reset();
+  taskTimer.stop();
 
-function hideStartButton() {
-  document.getElementById("startButton").style.display = "none";
-}
-
-function hideEndButton() {
-  document.getElementById("endButton").style.display = "none";
-
-}
-function showEndButton() {
-  document.getElementById("endButton").style.display = "inline";
-}
-
-
+<<<<<<< HEAD
 function getCircleRadius() {
   // Returns a random size
   return getArbitrarySize(2, 5);
@@ -67,19 +62,40 @@ var userPerformedTasks = {
 // hideEndButton();
 var taskTimer =  new Timer({ precision: "seconds" });
 
+=======
+  deleteSvg();
+  taskId = errors = svgToLeft = svgToRight = 0;
+}
+
+function completeGame() {
+  resetGame();
+  showStartButton();
+}
+
+>>>>>>> 897cb5655c429e2fabaf7351e222f8f701ed2049
 function startTask() {
   hideStartButton();
+  hideGameRoundButton();
   taskTimer.start();
   taskTimer.addEventListener("secondsUpdated", function(e) {
     $("#timer").html(taskTimer.getTimeValues().toString());
   });
+<<<<<<< HEAD
   playGame();
+=======
+>>>>>>> 897cb5655c429e2fabaf7351e222f8f701ed2049
 }
 
-function completeTask() {
-  taskTimer.stop();
+function playFullGameSet() {
+  hideGameRoundButton();
+  if (roundNumber < 10) {
+    roundNumber++;
+    taskTimer.reset();
+    playTask();
+  }
 }
 
+<<<<<<< HEAD
 function playGame() {
   if (leftTasks < 60) {
     addCircleSvg(
@@ -101,6 +117,15 @@ function playGame() {
           deleteSvg();
 
     showEndButton();
+=======
+function svgPositionTracker(xAxisValue) {
+  if (between(xAxisValue, 5, 45)) {
+    svgToLeft++;
+    return "Left";
+  } else if (between(xAxisValue, 55, 90)) {
+    svgToRight++;
+    return "right";
+>>>>>>> 897cb5655c429e2fabaf7351e222f8f701ed2049
   }
 }
 var wrongClick = 0; 
@@ -123,6 +148,7 @@ var wrongClick = 0;
         }
     }
 
+<<<<<<< HEAD
 
 function deleteSvg(){
     var container = document.getElementById("svgs");
@@ -130,11 +156,60 @@ function deleteSvg(){
       container.removeChild(container.firstChild);
     }
 }
-function addCircleSvg(xAxisPostion, yAxisPostion, radius) {
-    var container = document.getElementById("svgs");
-    while (container.firstChild) {
-      container.removeChild(container.firstChild);
+=======
+function playTask() {
+  if (taskId < 12) {
+    taskId++;
+    // When maxed on left pick right side
+    if (svgToLeft == 6) {
+      addCircleSvg(
+        setDistanceToMouse(2),
+        setDistanceToMouse("yAxis"),
+        getCircleRadius()
+      );
+      // When maxed on right pick left side
+    } else if (svgToRight == 6) {
+      addCircleSvg(
+        setDistanceToMouse(1),
+        setDistanceToMouse("yAxis"),
+        getCircleRadius()
+      );
+    } else if (svgToLeft < 6 || svgToRight < 6) {
+      // randomly picks a side
+      addCircleSvg(
+        setDistanceToMouse(getArbitrarySize(1, 3)),
+        setDistanceToMouse("yAxis"),
+        getCircleRadius()
+      );
     }
+  } else {
+    resetGame();
+    if (roundNumber < 10) {
+      playNextRoundButton(roundNumber);
+    } else {
+      alert("Game Over");
+      showStartButton();
+    }
+  }
+}
+
+>>>>>>> 897cb5655c429e2fabaf7351e222f8f701ed2049
+function addCircleSvg(xAxisPostion, yAxisPostion, radius) {
+  var position = svgPositionTracker(xAxisPostion);
+  logTaskSummary(
+    roundNumber,
+    taskId,
+    taskTimer.getTimeValues().toString(),
+    position,
+    xAxisPostion,
+    radius,
+    errors
+  );
+
+  var container = document.getElementById("svgs");
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
   // create an svg element
   var xmlns = "http://www.w3.org/2000/svg";
   var svgElem = document.createElementNS(xmlns, "svg");
@@ -156,19 +231,4 @@ function addCircleSvg(xAxisPostion, yAxisPostion, radius) {
   //   svgElem.appendChild(circle);
 
   container.append(circle);
-  console.log("added smthg");
-}
-
-function Adddata(amplitude, width, time, click) {
-  $("#results tr:last").after(
-    "<tr><td>" +
-      amplitude +
-      "</td><td>" +
-      width +
-      " </td><td>" +
-      time +
-      " </td><td>" +
-      click +
-      " </td></tr>"
-  );
 }
