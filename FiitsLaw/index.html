@@ -11,21 +11,28 @@
     <!-- Easy Time, Timer library -->
     <script src="./scripts/external/easytimer.min.js"></script>
     <!-- Fitt's Law Main -->
+    <script src="./scripts/helper.js"></script>
     <script src="./scripts/main.js"></script>
+
+
 
     <link href="CSS/main.css" rel="stylesheet" />
 </head>
 
 <body>
-    <button id="startButton" onclick="startTask()">Start Test !</button>
-    <button id="endButton" onclick="completeTask()"> Complete Test </button>
+    <div id="controls" class="controls">
+        <button id="startButton" onclick="startTask()">Start Test !</button>
+        <button id="endButton" onclick="completeGame()"> Complete Test </button>
+        <button id="nextButton" onclick="playFullGameSet()" style="display: none;"></button>
+
+    </div>
     <div id="timer">00:00:00</div>
 
 
 
     <div id="gameSection">
     </div>
-    <svg id="svgs" viewBox="1 1 100 100" xmlns="http://www.w3.org/2000/svg" onclick="playGame()"></svg>
+    <svg id="svgs" viewBox="1 1 100 100" xmlns="http://www.w3.org/2000/svg" ></svg>
 
 
     <div class="results">
