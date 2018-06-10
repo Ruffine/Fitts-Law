@@ -29,6 +29,7 @@ function resetGame() {
 function completeGame() {
   resetGame();
   showStartButton();
+  hideGameRoundButton();
 }
 
 function startTask() {
